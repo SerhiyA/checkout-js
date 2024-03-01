@@ -11,10 +11,16 @@
 
 @if $exportCSS--type {
     h1 {
+        font-family: $fontFamily-mori;
         @include headingStyle("h1");
     }
 
     h2 {
+        // TODO: create variables for the font styles! 
+        font-family: $fontFamily-mori;
+        color: $color-acai-100;
+        font-weight: 600;
+
         @include headingStyle("h2");
     }
 
