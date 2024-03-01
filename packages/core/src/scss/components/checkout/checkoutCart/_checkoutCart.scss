@@ -3,11 +3,11 @@
 // =============================================================================
 
 .cart {
-    border: container("border");
-    border-radius: $checkoutCart-borderRadius;
-    box-shadow: container("dropShadow");
+    border: none;
+    border-radius: none;
+    box-shadow: none;
     display: none;
-    margin: spacing("double") 0 spacing("single");
+    margin: spacing("double") spacing("double") spacing("single") spacing(single);
     min-height: $checkoutCart-minHeight;
 
     @include breakpoint("large") {
