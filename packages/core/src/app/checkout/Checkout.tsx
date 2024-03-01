@@ -49,6 +49,7 @@ import CheckoutStepType from './CheckoutStepType';
 import CheckoutSupport from './CheckoutSupport';
 import mapToCheckoutProps from './mapToCheckoutProps';
 import navigateToOrderConfirmation from './navigateToOrderConfirmation';
+import NoissueCheckoutProgress from './NoissueCheckoutProgress';
 
 const Billing = lazy(() =>
     retry(
@@ -287,6 +288,7 @@ class Checkout extends Component<
     }
 
     render(): ReactNode {
+        const { steps } = this.props;
         const { error, isHidingStepNumbers } = this.state;
         let errorModal = null;
 
@@ -306,6 +308,10 @@ class Checkout extends Component<
 
         return (
             <div id="checkout-page-container" data-test="checkout-page-container" className={classNames({ 'is-embedded': isEmbedded(), 'remove-checkout-step-numbers': isHidingStepNumbers })}>
+                <NoissueCheckoutProgress
+                    checkoutSteps={steps}
+                />
+
                 <div className="layout optimizedCheckout-contentPrimary">
                     {this.renderContent()}
                 </div>
