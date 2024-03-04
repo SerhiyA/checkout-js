@@ -72,6 +72,20 @@
 .customerView {
     align-items: top;
     display: flex;
+
+    &__info {
+        color: $color-boulder;
+        font-size: 14px;
+        margin: 0 0 4px;
+        
+        &:last-child {
+            margin: 0;
+        }
+
+        &--heading {
+            color: $color-acai-100;
+        }
+    }
 }
 
 .customerView-actions {
@@ -88,6 +102,8 @@
 }
 
 .customerView-body {
+    display: flex;
+    flex-direction: column;
     @include textTruncateMultiline;
 
     margin-right: spacing("single");

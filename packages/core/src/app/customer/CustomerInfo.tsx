@@ -1,15 +1,7 @@
-import { CheckoutSelectors, CustomerRequestOptions, CustomError } from '@bigcommerce/checkout-sdk';
-import { noop } from 'lodash';
+import {  CustomError } from '@bigcommerce/checkout-sdk';
 import React, { FunctionComponent } from 'react';
-
-import { TranslatedString } from '@bigcommerce/checkout/locale';
-import { CheckoutContextProps } from '@bigcommerce/checkout/payment-integration-api';
-
 import { withCheckout } from '../checkout';
-import { isErrorWithType } from '../common/error';
-import { Button, ButtonSize, ButtonVariant } from '../ui/button';
-
-import canSignOut, { isSupportedSignoutMethod } from './canSignOut';
+import { CheckoutContextProps } from '@bigcommerce/checkout/payment-integration-api';
 
 export interface CustomerInfoProps {
     onSignOut?(event: CustomerSignOutEvent): void;
@@ -22,39 +14,43 @@ export interface CustomerSignOutEvent {
 
 interface WithCheckoutCustomerInfoProps {
     email: string;
-    methodId: string;
-    isSignedIn: boolean;
-    isSigningOut: boolean;
-    signOut(options?: CustomerRequestOptions): Promise<CheckoutSelectors>;
+    name: string;
+    // methodId: string;
+    // isSignedIn: boolean;
+    // isSigningOut: boolean;
+    // signOut(options?: CustomerRequestOptions): Promise<CheckoutSelectors>;
 }
 
 const CustomerInfo: FunctionComponent<CustomerInfoProps & WithCheckoutCustomerInfoProps> = ({
     email,
-    methodId,
-    isSignedIn,
-    isSigningOut,
-    onSignOut = noop,
-    onSignOutError = noop,
-    signOut,
+    name,
+    // methodId,
+    // isSignedIn,
+    // isSigningOut,
+    // onSignOut = noop,
+    // onSignOutError = noop,
+    // signOut,
 }) => {
-    const handleSignOut: () => Promise<void> = async () => {
-        try {
-            if (isSupportedSignoutMethod(methodId)) {
-                await signOut({ methodId });
-                onSignOut({ isCartEmpty: false });
-                window.location.reload();
-            } else {
-                await signOut();
-                onSignOut({ isCartEmpty: false });
-            }
-        } catch (error) {
-            if (isErrorWithType(error) && error.type === 'checkout_not_available') {
-                onSignOut({ isCartEmpty: true });
-            } else {
-                onSignOutError(error);
-            }
-        }
-    };
+
+    // We don't want to allow customer log in/log out on the checkout page for now.
+    // const handleSignOut: () => Promise<void> = async () => {
+    //     try {
+    //         if (isSupportedSignoutMethod(methodId)) {
+    //             await signOut({ methodId });
+    //             onSignOut({ isCartEmpty: false });
+    //             window.location.reload();
+    //         } else {
+    //             await signOut();
+    //             onSignOut({ isCartEmpty: false });
+    //         }
+    //     } catch (error) {
+    //         if (isErrorWithType(error) && error.type === 'checkout_not_available') {
+    //             onSignOut({ isCartEmpty: true });
+    //         } else {
+    //             onSignOutError(error);
+    //         }
+    //     }
+    // };
 
     return (
         <div className="customerView" data-test="checkout-customer-info">
@@ -62,10 +58,13 @@ const CustomerInfo: FunctionComponent<CustomerInfoProps & WithCheckoutCustomerIn
                 className="customerView-body optimizedCheckout-contentPrimary"
                 data-test="customer-info"
             >
-                {email}
+                <h4 className="customerView__info customerView__info--heading">{name}</h4>
+                <p className="customerView__info">{email}</p>
             </div>
 
-            <div className="customerView-actions">
+            {/* We don't want to allow customer log in/log out on the checkout page for now. */}
+
+            {/* <div className="customerView-actions">
                 {isSignedIn && (
                     <Button
                         isLoading={isSigningOut}
@@ -77,18 +76,16 @@ const CustomerInfo: FunctionComponent<CustomerInfoProps & WithCheckoutCustomerIn
                         <TranslatedString id="customer.sign_out_action" />
                     </Button>
                 )}
-            </div>
+            </div> */}
         </div>
     );
 };
 
 function mapToWithCheckoutCustomerInfoProps({
-    checkoutService,
     checkoutState,
 }: CheckoutContextProps): WithCheckoutCustomerInfoProps | null {
     const {
         data: { getBillingAddress, getCheckout, getCustomer },
-        statuses: { isSigningOut },
     } = checkoutState;
 
     const billingAddress = getBillingAddress();
@@ -99,15 +96,16 @@ function mapToWithCheckoutCustomerInfoProps({
         return null;
     }
 
-    const methodId =
-        checkout.payments && checkout.payments.length === 1 ? checkout.payments[0].providerId : '';
+    // const methodId =
+    //     checkout.payments && checkout.payments.length === 1 ? checkout.payments[0].providerId : '';
 
     return {
+        name: customer.fullName,
         email: billingAddress.email || customer.email,
-        methodId,
-        isSignedIn: canSignOut(customer, checkout, methodId),
-        isSigningOut: isSigningOut(),
-        signOut: checkoutService.signOutCustomer,
+        // methodId,
+        // isSignedIn: canSignOut(customer, checkout, methodId),
+        // isSigningOut: isSigningOut(),
+        // signOut: checkoutService.signOutCustomer,
     };
 }
 
