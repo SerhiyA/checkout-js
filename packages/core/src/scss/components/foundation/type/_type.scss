@@ -2,6 +2,24 @@
 // TYPE (CSS)
 // =============================================================================
 
+h1 {
+    font-family: $fontFamily-mori;
+}
+
+h2 {
+    font-family: $fontFamily-mori;
+    color: $color-acai-100;
+    font-weight: 600;
+}
+
+h4 {
+    font-family: $fontFamily-mori;
+    color: $color-acai-100;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
 // BCApp Type specifics
 // -----------------------------------------------------------------------------
 //
@@ -11,16 +29,10 @@
 
 @if $exportCSS--type {
     h1 {
-        font-family: $fontFamily-mori;
         @include headingStyle("h1");
     }
 
     h2 {
-        // TODO: create variables for the font styles! 
-        font-family: $fontFamily-mori;
-        color: $color-acai-100;
-        font-weight: 600;
-
         @include headingStyle("h2");
     }
 
@@ -29,7 +41,7 @@
     }
 
     h4 {
-        @include headingStyle("h5");
+        @include headingStyle("h4");
     }
 
     h5 {

@@ -139,6 +139,10 @@ function appConfig(options, argv) {
                 module: {
                     rules: [
                         {
+                            test: /\.(woff|woff2|ttf|eot)$/,
+                            use: 'file-loader?name=fonts/[name].[ext]!static',
+                        },
+                        {
                             test: /\.[tj]sx?$/,
                             enforce: 'pre',
                             loader: require.resolve('source-map-loader'),
