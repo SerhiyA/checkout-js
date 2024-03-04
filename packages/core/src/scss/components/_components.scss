@@ -130,5 +130,12 @@
 //Checkout Ratepay
 @import "checkout/ratepayForm/component";
 
-// Custom Noissue Components
+// =============================================================================
+// CUSTOM NOISSUE COMPONENTS
+// =============================================================================
+
+// Checkout Progress Bar
 @import "checkout/noissueCheckoutProgress/component";
+
+// Subtle Link-like Button
+@import "foundation/noissueSubtleButton/component";

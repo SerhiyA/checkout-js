@@ -67,9 +67,12 @@ export default class CheckoutStep extends Component<CheckoutStepProps, CheckoutS
 
         return (
             <li
-                className={classNames('checkout-step', 'optimizedCheckout-checkoutStep', {
-                    [`checkout-step--${type}`]: !!type,
-                })}
+                className={classNames('noissue-checkout-step',
+                    'optimizedCheckout-checkoutStep', {
+                        [`noissue-checkout-step--${type}`]: !!type,
+                        'noissue-checkout-step--complete': isComplete
+                    }
+                )}
                 ref={this.containerRef}
             >
                 <div className="checkout-view-header">

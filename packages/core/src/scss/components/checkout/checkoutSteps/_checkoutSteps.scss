@@ -10,24 +10,32 @@
 .checkout-steps {
     counter-reset: $checkoutStep-counter;
     list-style-type: none;
-    margin: 0;
+    margin: spacing("double") + (spacing("single")) 0 0;
+    font-family: $fontFamily-mori;
 
     @include breakpoint("medium") {
-        padding-right: (spacing("double") + spacing("double"));
+        padding-left: (spacing("double") * 2);
+        padding-right: 0;
     }
 }
 
-.checkout-step {
-    border-bottom: container("border");
+.noissue-checkout-step {
+    border: container("border");
+    border-color: $color-black-10;
+    border-width: $checkoutStep-borderSize;
     counter-increment: $checkoutStep-counter;
-    padding: spacing("single") 0;
+    padding: spacing("single");
+    margin-bottom: spacing("single");
+    border-radius: spacing("single") / 2;
 
-    &:last-child {
-        border: 0;
+    &--complete {
+        background-color: $color-black-10;
+        border-width: 0;
     }
 }
 
 .checkout-view-header {
+    display: flex;
     margin-bottom: remCalc(10px);
 
     &:last-child {
@@ -91,8 +99,6 @@
 }
 
 .stepHeader-counter--complete {
-    transform: scale(0.8);
-
     &::before {
         @include square(0);
 
@@ -105,13 +111,28 @@
     }
 }
 
+.stepHeader-counter--isActive {
+    &::before {
+        @include square($checkoutStep-counter-size - 2);
+
+        content: "";
+        border: $checkoutStep-counter-border-size * 2 solid $color-white;
+        outline: $checkoutStep-counter-border-size solid $color-acai-100;
+        border-radius: 100%;
+    }
+
+    svg {
+        display: none;
+    }
+}
+
 // Checkout Step Header
 // -----------------------------------------------------------------------------
 .stepHeader {
     align-items: top;
     display: flex;
-    flex-wrap: wrap;
-    padding: spacing("single") 0;
+    flex-direction: column;
+    padding: 0;
 
     @include breakpoint("small") {
         flex-wrap: nowrap;
@@ -134,14 +155,29 @@
 }
 
 .stepHeader-title {
+    font-size: $checkoutStep-heading-font-size;
     margin: 0 0 0 $checkoutStep-header-figure-margin;
     min-width: 9rem;
 }
 
 .remove-checkout-step-numbers {
-    li.checkout-step {
+    li.noissue-checkout-step {
         div.stepHeader-counter.icon {
             display: none;
+        }
+
+        div.stepHeader-counter--complete.icon {
+            display: inline-block;
+            margin-right: spacing("single") / 2;
+        }
+        
+        div.stepHeader-counter--isActive.icon {
+            display: inline-block;
+            margin-right: spacing("single") / 2;
+
+            svg {
+                display: none;
+            }
         }
 
         .checkout-form,
@@ -180,10 +216,6 @@
     align-self: flex-start;
     margin-left: auto;
     margin-top: remCalc(5px);
-
-    @include breakpoint("small") {
-        margin-left: $checkoutStep-header-actions-margin;
-    }
 
     .button {
         margin-bottom: 0;

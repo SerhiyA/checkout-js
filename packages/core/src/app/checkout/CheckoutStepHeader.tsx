@@ -5,10 +5,10 @@ import React, { FunctionComponent, memo, ReactNode } from 'react';
 import { preventDefault } from '@bigcommerce/checkout/dom-utils';
 import { TranslatedString } from '@bigcommerce/checkout/locale';
 
-import { Button, ButtonSize, ButtonVariant } from '../ui/button';
 import { IconCheck } from '../ui/icon';
 
 import CheckoutStepType from './CheckoutStepType';
+import { NoissueSubtleButton } from '../ui/noissueSubtleButton';
 
 export interface CheckoutStepHeaderProps {
     heading: ReactNode;
@@ -29,7 +29,7 @@ const CheckoutStepHeader: FunctionComponent<CheckoutStepHeaderProps> = ({
     summary,
     type,
 }) => {
-    return (
+    return (<>
         <div
             className={classNames('stepHeader', {
                 'is-readonly': !isEditable,
@@ -43,6 +43,7 @@ const CheckoutStepHeader: FunctionComponent<CheckoutStepHeaderProps> = ({
                         'stepHeader-counter',
                         'optimizedCheckout-step',
                         { 'stepHeader-counter--complete': isComplete },
+                        { 'stepHeader-counter--isActive': isActive}
                     )}
                 />
 
@@ -55,20 +56,19 @@ const CheckoutStepHeader: FunctionComponent<CheckoutStepHeaderProps> = ({
             >
                 {!isActive && isComplete && summary}
             </div>
-
-            {isEditable && !isActive && (
-                <div className="stepHeader-actions stepHeader-column">
-                    <Button
-                        aria-expanded={isActive}
-                        size={ButtonSize.Tiny}
-                        testId="step-edit-button"
-                        variant={ButtonVariant.Secondary}
-                    >
-                        <TranslatedString id="common.edit_action" />
-                    </Button>
-                </div>
-            )}
         </div>
+
+        {isEditable && !isActive && (
+            <div className="stepHeader-actions stepHeader-column">
+                <NoissueSubtleButton
+                    aria-expanded={isActive}
+                    testId="step-edit-button"
+                >
+                    <TranslatedString id="common.edit_action" />
+                </NoissueSubtleButton>
+            </div>
+        )}
+        </>
     );
 };
 

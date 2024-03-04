@@ -1,0 +1,44 @@
+// =============================================================================
+// SUBTLE BUTTONS (CSS)
+// =============================================================================
+
+.subtle-button {
+    font-size: 12px;
+    line-height: 1.25;
+    color: $color-pitaya-100;
+
+    &:focus {
+        color: $color-pitaya-120;
+    }
+
+    // scss-lint:disable NestingDepth
+    &.is-loading {
+        color: color("whites");
+
+        &.button--primary {
+            color: color("greys", "darker");
+        }
+
+        &[disabled] {
+            color: color("greys", "light");
+        }
+
+        &::before {
+            @include loadingOverlay-spinner();
+            @include square(30px);
+
+            animation: spin $loadingOverlay-spinner-duration infinite $loadingOverlay-spinner-easing;
+            border-color: color("whites") color("whites") color("greys") color("greys");
+        }
+    }
+
+    &--slab {
+        width: 100%;
+    }
+    
+    &--disabled {
+        color: color("greys", "light");
+        cursor: default;
+        pointer-events: none;
+    }
+}

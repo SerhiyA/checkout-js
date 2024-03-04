@@ -5,14 +5,17 @@
 // Checkout Step
 // -----------------------------------------------------------------------------
 $checkoutStep-margin: spacing("single");
+$checkoutStep-heading-font-size: 18px;
+$checkoutStep-borderSize: 2px;
 $checkoutStep-header-actions-margin: $checkoutStep-margin;
 $checkoutStep-header-body-margin: $checkoutStep-margin;
 $checkoutStep-header-figure-margin: $checkoutStep-margin;
-
 // Checkout Step Counter
 // -----------------------------------------------------------------------------
 $checkoutStep-counter: li-counter;
 $checkoutStep-counter-color: color("whites", "bright");
 $checkoutStep-counter-padding: 0;
 $checkoutStep-counter-padding--small: spacing("sixth");
-$checkoutStep-counter-size: 35;
+$checkoutStep-counter-size: 25;
+$checkoutStep-counter-border-size: 2px;
+
