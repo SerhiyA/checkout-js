@@ -163,7 +163,6 @@ class Shipping extends Component<ShippingProps & WithCheckoutShippingProps, Ship
             <AddressFormSkeleton isLoading={isInitializing}>
                 <div className="checkout-form">
                     <ShippingHeader
-                        isGuest={isGuest}
                         isMultiShippingMode={isMultiShippingMode}
                         onMultiShippingChange={this.handleMultiShippingModeSwitch}
                         shouldShowMultiShipping={shouldShowMultiShipping}

@@ -5,18 +5,14 @@ import { ExtensionRegionContainer, useExtensions } from '@bigcommerce/checkout/c
 import { preventDefault } from '@bigcommerce/checkout/dom-utils';
 import { TranslatedString } from '@bigcommerce/checkout/locale';
 
-import { Legend } from '../ui/form';
-
 interface ShippingHeaderProps {
     isMultiShippingMode: boolean;
-    isGuest: boolean;
     shouldShowMultiShipping: boolean;
     onMultiShippingChange(): void;
 }
 
 const ShippingHeader: FunctionComponent<ShippingHeaderProps> = ({
     isMultiShippingMode,
-    isGuest,
     onMultiShippingChange,
     shouldShowMultiShipping,
 }) => {
@@ -45,18 +41,6 @@ const ShippingHeader: FunctionComponent<ShippingHeaderProps> = ({
                 <div id={ExtensionRegionContainer.ShippingShippingAddressFormBefore} />
             )}
             <div className="form-legend-container">
-                <Legend testId="shipping-address-heading">
-                    <TranslatedString
-                        id={
-                            isMultiShippingMode
-                                ? isGuest
-                                    ? 'shipping.multishipping_address_heading_guest'
-                                    : 'shipping.multishipping_address_heading'
-                                : 'shipping.shipping_address_heading'
-                        }
-                    />
-                </Legend>
-
                 {shouldShowMultiShipping && (
                     <a
                         data-test="shipping-mode-toggle"

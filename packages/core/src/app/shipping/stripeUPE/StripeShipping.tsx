@@ -81,7 +81,6 @@ class StripeShipping extends Component<StripeShippingProps, StripeShippingState>
             <AddressFormSkeleton isLoading={isStripeAutoStep || isStripeLoading}/>
             <div className="checkout-form" style={{display: isStripeAutoStep || isStripeLoading ? 'none' : undefined}}>
                 <ShippingHeader
-                    isGuest={isGuest}
                     isMultiShippingMode={isMultiShippingMode}
                     onMultiShippingChange={onMultiShippingChange}
                     shouldShowMultiShipping={shouldShowMultiShipping}
