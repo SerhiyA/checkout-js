@@ -6,7 +6,9 @@ import React, { Component, createRef, ReactNode, RefObject } from 'react';
 import { TranslatedString, withLanguage, WithLanguageProps } from '@bigcommerce/checkout/locale';
 
 import { AutocompleteItem } from '../ui/autocomplete';
-import { CheckboxFormField, DynamicFormField, DynamicFormFieldType, Fieldset } from '../ui/form';
+import {
+    // CheckboxFormField, 
+    DynamicFormField, DynamicFormFieldType, Fieldset } from '../ui/form';
 
 import { AddressKeyMap } from './address';
 import {
@@ -92,7 +94,7 @@ class AddressForm extends Component<AddressFormProps & WithLanguageProps> {
             countryCode,
             googleMapsApiKey,
             onAutocompleteToggle,
-            shouldShowSaveAddress,
+            // shouldShowSaveAddress,
             isFloatingLabelEnabled,
         } = this.props;
 
@@ -164,12 +166,12 @@ class AddressForm extends Component<AddressFormProps & WithLanguageProps> {
                         })}
                     </div>
                 </Fieldset>
-                {shouldShowSaveAddress && (
+                {/* {shouldShowSaveAddress && (
                     <CheckboxFormField
                         labelContent={<TranslatedString id="address.save_in_addressbook" />}
                         name={fieldName ? `${fieldName}.shouldSaveAddress` : 'shouldSaveAddress'}
                     />
-                )}
+                )} */}
             </>
         );
     }

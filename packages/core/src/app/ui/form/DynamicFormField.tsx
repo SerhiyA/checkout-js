@@ -148,6 +148,7 @@ const DynamicFormField: FunctionComponent<DynamicFormFieldProps> = ({
                     label={labelComponent}
                     name={fieldName}
                     onChange={onChange}
+                    additionalClassName={`form-field--${fieldType || 'text'}`}
                 />
             )}
         </div>

@@ -27,6 +27,7 @@
     padding: spacing("single");
     margin-bottom: spacing("single");
     border-radius: spacing("single") / 2;
+    transition: background-color .2s ease-in-out;
 
     &--complete {
         background-color: $color-black-10;
@@ -131,8 +132,9 @@
 .stepHeader {
     align-items: top;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     padding: 0;
+    width: 100%;
 
     @include breakpoint("small") {
         flex-wrap: nowrap;

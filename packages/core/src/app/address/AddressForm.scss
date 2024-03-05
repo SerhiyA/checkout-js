@@ -8,8 +8,8 @@
 .checkout-address {
     display: flex;
     flex-flow: row wrap;
-    margin-left: -1 * spacing("half");
-    margin-right: -1 * spacing("half");
+    margin-left: -2/3 * spacing("half");
+    margin-right: -2/3 * spacing("half");
 
     .dynamic-form-addressState,
     .dynamic-form-field {
@@ -18,7 +18,7 @@
         flex-basis: 100%;
         margin-bottom: spacing("half");
         max-width: 100%;
-        padding: 0 spacing("half");
+        padding: 0 spacing("quarter");
 
         &:last-child {
             margin-bottom: 0;

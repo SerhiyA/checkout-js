@@ -29,46 +29,49 @@ const CheckoutStepHeader: FunctionComponent<CheckoutStepHeaderProps> = ({
     summary,
     type,
 }) => {
-    return (<>
-        <div
+    return (<div
             className={classNames('stepHeader', {
                 'is-readonly': !isEditable,
                 'is-clickable': isEditable && !isActive,
             })}
             onClick={preventDefault(isEditable && onEdit ? () => onEdit(type) : noop)}
         >
-            <div className="stepHeader-figure stepHeader-column">
-                <IconCheck
-                    additionalClassName={classNames(
-                        'stepHeader-counter',
-                        'optimizedCheckout-step',
-                        { 'stepHeader-counter--complete': isComplete },
-                        { 'stepHeader-counter--isActive': isActive}
-                    )}
-                />
+            <div className='stepHeader-label'>
+                <div className="stepHeader-figure stepHeader-column">
+                    <IconCheck
+                        additionalClassName={classNames(
+                            'stepHeader-counter',
+                            'optimizedCheckout-step',
+                            { 'stepHeader-counter--complete': isComplete },
+                            { 'stepHeader-counter--isActive': isActive}
+                        )}
+                    />
 
-                <h2 className="stepHeader-title optimizedCheckout-headingPrimary">{heading}</h2>
-            </div>
+                    <h2 className="stepHeader-title optimizedCheckout-headingPrimary">{heading}</h2>
+                </div>
 
-            <div
-                className="stepHeader-body stepHeader-column optimizedCheckout-contentPrimary"
-                data-test="step-info"
-            >
-                {!isActive && isComplete && summary}
-            </div>
-        </div>
-
-        {isEditable && !isActive && (
-            <div className="stepHeader-actions stepHeader-column">
-                <NoissueSubtleButton
-                    aria-expanded={isActive}
-                    testId="step-edit-button"
+                <div
+                    className="stepHeader-body stepHeader-column optimizedCheckout-contentPrimary"
+                    data-test="step-info"
                 >
-                    <TranslatedString id="common.edit_action" />
-                </NoissueSubtleButton>
+                    {!isActive && isComplete && summary}
+                </div>
             </div>
-        )}
-        </>
+
+            {isEditable && !isActive && (
+                <div className="stepHeader-actions stepHeader-column">
+                    <NoissueSubtleButton
+                        aria-expanded={isActive}
+                        testId="step-edit-button"
+                        onClick={preventDefault(isEditable && onEdit ? () => onEdit(type) : noop)}
+                    >
+                        <TranslatedString
+                            id="common.edit_action"
+                        />
+                    </NoissueSubtleButton>
+                </div>
+            )}
+        </div>
     );
 };
 

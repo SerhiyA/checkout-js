@@ -31,7 +31,7 @@ import { getCustomFormFieldsValidationSchema } from '../formFields';
 import { PaymentMethodId } from '../payment/paymentMethod';
 import { Fieldset, Form } from '../ui/form';
 
-import BillingSameAsShippingField from './BillingSameAsShippingField';
+// import BillingSameAsShippingField from './BillingSameAsShippingField';
 import hasSelectedShippingOptions from './hasSelectedShippingOptions';
 import ShippingAddress from './ShippingAddress';
 import { SHIPPING_ADDRESS_FIELDS } from './ShippingAddressFields';
@@ -157,10 +157,10 @@ class SingleShippingForm extends PureComponent<
         const { isResettingAddress, isUpdatingShippingData, hasRequestedShippingOptions } =
             this.state;
 
-        const PAYMENT_METHOD_VALID = ['amazonpay'];
-        const shouldShowBillingSameAsShipping = !PAYMENT_METHOD_VALID.some(
-            (method) => method === methodId,
-        );
+        // const PAYMENT_METHOD_VALID = ['amazonpay'];
+        // const shouldShowBillingSameAsShipping = !PAYMENT_METHOD_VALID.some(
+        //     (method) => method === methodId,
+        // );
 
         return (
             <Form autoComplete="on">
@@ -186,11 +186,11 @@ class SingleShippingForm extends PureComponent<
                         shippingAddress={shippingAddress}
                         shouldShowSaveAddress={shouldShowSaveAddress}
                     />
-                    {shouldShowBillingSameAsShipping && (
+                    {/* {shouldShowBillingSameAsShipping && (
                         <div className="form-body">
                             <BillingSameAsShippingField />
                         </div>
-                    )}
+                    )} */}
                 </Fieldset>
 
                 <ShippingFormFooter
