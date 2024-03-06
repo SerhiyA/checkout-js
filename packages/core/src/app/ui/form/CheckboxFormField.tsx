@@ -14,6 +14,7 @@ export interface CheckboxFormFieldProps {
     labelContent: ReactNode;
     onChange?(isChecked: boolean): void;
     testId?: string;
+    initialState?: boolean;
 }
 
 const CheckboxFormField: FunctionComponent<CheckboxFormFieldProps> = ({
@@ -24,13 +25,14 @@ const CheckboxFormField: FunctionComponent<CheckboxFormFieldProps> = ({
     name,
     id,
     testId,
+    initialState = false
 }) => {
     const renderField = useCallback(
         ({ field }: FieldProps) => (
             <>
                 <CheckboxInput
                     {...field}
-                    checked={!!field.value}
+                    checked={field.value !== undefined ? !!field.value : initialState}
                     disabled={disabled}
                     id={id || field.name}
                     label={labelContent}

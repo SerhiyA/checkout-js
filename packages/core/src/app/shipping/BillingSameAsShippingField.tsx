@@ -5,10 +5,12 @@ import { TranslatedString } from '@bigcommerce/checkout/locale';
 import { CheckboxFormField } from '../ui/form';
 
 export interface BillingSameAsShippingFieldProps {
+    initialState?: boolean,
     onChange?(isChecked: boolean): void;
 }
 
 const BillingSameAsShippingField: FunctionComponent<BillingSameAsShippingFieldProps> = ({
+    initialState,
     onChange,
 }) => {
     const labelContent = useMemo(
@@ -22,6 +24,7 @@ const BillingSameAsShippingField: FunctionComponent<BillingSameAsShippingFieldPr
             labelContent={labelContent}
             name="billingSameAsShipping"
             onChange={onChange}
+            initialState={Boolean(initialState)}
         />
     );
 };

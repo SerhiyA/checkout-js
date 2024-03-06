@@ -30,10 +30,12 @@ import { Fieldset, Form } from '../ui/form';
 import { LoadingOverlay } from '../ui/loading';
 
 import StaticBillingAddress from './StaticBillingAddress';
+import BillingSameAsShippingField from '../shipping/BillingSameAsShippingField';
 
-export type BillingFormValues = AddressFormValues & { orderComment: string };
+export type BillingFormValues = AddressFormValues & { orderComment: string } & { billingSameAsShipping: boolean };
 
 export interface BillingFormProps {
+    isBillingSameAsShipping: boolean;
     billingAddress?: Address;
     countries: Country[];
     countriesWithAutocomplete: string[];
@@ -51,6 +53,7 @@ export interface BillingFormProps {
 }
 
 const BillingForm = ({
+    isBillingSameAsShipping,
     googleMapsApiKey,
     billingAddress,
     countriesWithAutocomplete,
@@ -67,6 +70,8 @@ const BillingForm = ({
     onUnhandledError,
 }: BillingFormProps & WithLanguageProps & FormikProps<BillingFormValues>) => {
     const [isResettingAddress, setIsResettingAddress] = useState(false);
+    const [editingAddress, setEditingAddress] = useState(!isBillingSameAsShipping)
+ 
     const addressFormRef: RefObject<HTMLFieldSetElement> = useRef(null);
     const { isPayPalAxoEnabled, mergedBcAndPayPalConnectAddresses } = usePayPalConnectAddress();
 
@@ -106,44 +111,52 @@ const BillingForm = ({
 
     return (
         <Form autoComplete="on">
+            <div className="form-body">
+                <BillingSameAsShippingField
+                    onChange={(isChecked) => setEditingAddress(!isChecked)}
+                />
+            </div>
+
             {shouldRenderStaticAddress && billingAddress && (
                 <div className="form-fieldset">
                     <StaticBillingAddress address={billingAddress} />
                 </div>
             )}
 
-            <Fieldset id="checkoutBillingAddress" ref={addressFormRef}>
-                {hasAddresses && !shouldRenderStaticAddress && (
-                    <Fieldset id="billingAddresses">
-                        <LoadingOverlay isLoading={isResettingAddress}>
-                            <AddressSelect
-                                addresses={billingAddresses}
-                                onSelectAddress={handleSelectAddress}
-                                onUseNewAddress={handleUseNewAddress}
-                                selectedAddress={
-                                    hasValidCustomerAddress ? billingAddress : undefined
-                                }
-                                type={AddressType.Billing}
-                            />
-                        </LoadingOverlay>
-                    </Fieldset>
-                )}
+            {editingAddress && (
+                <Fieldset id="checkoutBillingAddress" ref={addressFormRef}>
+                    {hasAddresses && !shouldRenderStaticAddress && (
+                        <Fieldset id="billingAddresses">
+                            <LoadingOverlay isLoading={isResettingAddress}>
+                                <AddressSelect
+                                    addresses={billingAddresses}
+                                    onSelectAddress={handleSelectAddress}
+                                    onUseNewAddress={handleUseNewAddress}
+                                    selectedAddress={
+                                        hasValidCustomerAddress ? billingAddress : undefined
+                                    }
+                                    type={AddressType.Billing}
+                                />
+                            </LoadingOverlay>
+                        </Fieldset>
+                    )}
 
-                {!hasValidCustomerAddress && (
-                    <AddressFormSkeleton isLoading={isResettingAddress}>
-                        <AddressForm
-                            countries={countries}
-                            countriesWithAutocomplete={countriesWithAutocomplete}
-                            countryCode={values.countryCode}
-                            formFields={editableFormFields}
-                            googleMapsApiKey={googleMapsApiKey}
-                            isFloatingLabelEnabled={isFloatingLabelEnabled}
-                            setFieldValue={setFieldValue}
-                            shouldShowSaveAddress={!isGuest}
-                        />
-                    </AddressFormSkeleton>
-                )}
-            </Fieldset>
+                    {!hasValidCustomerAddress && (
+                        <AddressFormSkeleton isLoading={isResettingAddress}>
+                            <AddressForm
+                                countries={countries}
+                                countriesWithAutocomplete={countriesWithAutocomplete}
+                                countryCode={values.countryCode}
+                                formFields={editableFormFields}
+                                googleMapsApiKey={googleMapsApiKey}
+                                isFloatingLabelEnabled={isFloatingLabelEnabled}
+                                setFieldValue={setFieldValue}
+                                shouldShowSaveAddress={!isGuest}
+                            />
+                        </AddressFormSkeleton>
+                    )}
+                </Fieldset>
+            )}
 
             {shouldShowOrderComments && <OrderComments />}
 
@@ -167,12 +180,13 @@ export default withLanguage(
         handleSubmit: (values, { props: { onSubmit } }) => {
             onSubmit(values);
         },
-        mapPropsToValues: ({ getFields, customerMessage, billingAddress }) => ({
+        mapPropsToValues: ({ getFields, customerMessage, billingAddress, isBillingSameAsShipping }) => ({
             ...mapAddressToFormValues(
                 getFields(billingAddress && billingAddress.countryCode),
                 billingAddress,
             ),
             orderComment: customerMessage,
+            billingSameAsShipping: isBillingSameAsShipping
         }),
         isInitialValid: ({ billingAddress, getFields, language }) =>
             !!billingAddress &&

@@ -69,6 +69,10 @@ const PLACEHOLDER: AddressKeyMap = {
 
 const AUTOCOMPLETE_FIELD_NAME = 'address1';
 
+const TAX_NUMBER_FIELD_NAME = 'field_27';
+const PHONE_FIELD_NAME = 'phone';
+const OMITTED_FIELDS = [TAX_NUMBER_FIELD_NAME, PHONE_FIELD_NAME];
+
 class AddressForm extends Component<AddressFormProps & WithLanguageProps> {
     private containerRef: RefObject<HTMLElement> = createRef();
     private nextElement?: HTMLElement | null;
@@ -108,6 +112,10 @@ class AddressForm extends Component<AddressFormProps & WithLanguageProps> {
                         {formFields.map((field) => {
                             const addressFieldName = field.name;
                             const translatedPlaceholderId = PLACEHOLDER[addressFieldName];
+
+                            if (OMITTED_FIELDS.includes(addressFieldName)) {
+                                return null
+                            }
 
                             if (
                                 addressFieldName === 'address1' &&

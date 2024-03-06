@@ -9,7 +9,6 @@ import {
 import { noop } from 'lodash';
 import React, { Component, ReactNode } from 'react';
 
-import { TranslatedString } from '@bigcommerce/checkout/locale';
 import { CheckoutContextProps } from '@bigcommerce/checkout/payment-integration-api';
 import { AddressFormSkeleton } from '@bigcommerce/checkout/ui';
 
@@ -17,13 +16,13 @@ import { isEqualAddress, mapAddressFromFormValues } from '../address';
 import { withCheckout } from '../checkout';
 import { EMPTY_ARRAY, isFloatingLabelEnabled } from '../common/utility';
 import { getShippableItemsCount } from '../shipping';
-import { Legend } from '../ui/form';
 
 import BillingForm, { BillingFormValues } from './BillingForm';
 import getBillingMethodId from './getBillingMethodId';
 
 export interface BillingProps {
-    navigateNextStep(): void;
+    isBillingSameAsShipping: boolean;
+    navigateNextStep(isBillingSameAsShipping: boolean): void;
     onReady?(): void;
     onUnhandledError(error: Error): void;
 }
@@ -37,6 +36,7 @@ export interface WithCheckoutBillingProps {
     isInitializing: boolean;
     isUpdating: boolean;
     shouldShowOrderComments: boolean;
+    shippingAddress?: Address;
     billingAddress?: Address;
     methodId?: string;
     isFloatingLabelEnabled?: boolean;
@@ -61,16 +61,11 @@ class Billing extends Component<BillingProps & WithCheckoutBillingProps> {
     }
 
     render(): ReactNode {
-        const { updateAddress, isInitializing, ...props } = this.props;
+        const { updateAddress, isInitializing, methodId, ...props } = this.props;
 
         return (
             <AddressFormSkeleton isLoading={isInitializing}>
                 <div className="checkout-form">
-                    <div className="form-legend-container">
-                        <Legend testId="billing-address-heading">
-                            <TranslatedString id="billing.billing_address_heading" />
-                        </Legend>
-                    </div>
                     <BillingForm
                         {...props}
                         onSubmit={this.handleSubmit}
@@ -82,6 +77,7 @@ class Billing extends Component<BillingProps & WithCheckoutBillingProps> {
     }
 
     private handleSubmit: (values: BillingFormValues) => void = async ({
+        billingSameAsShipping,
         orderComment,
         ...addressValues
     }) => {
@@ -92,12 +88,17 @@ class Billing extends Component<BillingProps & WithCheckoutBillingProps> {
             billingAddress,
             navigateNextStep,
             onUnhandledError,
+            shippingAddress
         } = this.props;
 
         const promises: Array<Promise<CheckoutSelectors>> = [];
         const address = mapAddressFromFormValues(addressValues);
 
-        if (address && !isEqualAddress(address, billingAddress)) {
+        if (billingSameAsShipping && shippingAddress && !isEqualAddress(shippingAddress, billingAddress)) {
+            promises.push(updateAddress(shippingAddress));
+        }
+
+        if (!billingSameAsShipping && address && !isEqualAddress(address, billingAddress)) {
             promises.push(updateAddress(address));
         }
 
@@ -107,8 +108,7 @@ class Billing extends Component<BillingProps & WithCheckoutBillingProps> {
 
         try {
             await Promise.all(promises);
-
-            navigateNextStep();
+            navigateNextStep(billingSameAsShipping);
         } catch (error) {
             if (error instanceof Error) {
                 onUnhandledError(error);
@@ -127,6 +127,7 @@ function mapToBillingProps({
             getConfig,
             getCart,
             getCustomer,
+            getShippingAddress,
             getBillingAddress,
             getBillingAddressFields,
             getBillingCountries,
@@ -153,6 +154,7 @@ function mapToBillingProps({
 
     return {
         billingAddress: getBillingAddress(),
+        shippingAddress: getShippingAddress(),
         countries: getBillingCountries() || EMPTY_ARRAY,
         countriesWithAutocomplete,
         customer,
