@@ -8,6 +8,8 @@ import { AddressType, StaticAddress } from '../address';
 import { StaticShippingOption } from './shippingOption';
 import './StaticConsignment.scss';
 import StaticConsignmentItemList from './StaticConsignmentItemList';
+import { TranslatedString } from '@bigcommerce/checkout/locale';
+import { IconCheck } from '../ui/icon';
 
 interface StaticConsignmentProps {
     consignment: Consignment;
@@ -34,7 +36,16 @@ const StaticConsignment: FunctionComponent<StaticConsignmentProps> = ({
             {!compactView && <StaticConsignmentItemList cart={cart} consignment={consignment} />}
 
             {selectedShippingOption && (
-                <div>
+                <div className="staticConsignment__shipping-method">
+                    <div className="staticConsignment__method-heading">
+                        <IconCheck
+                            additionalClassName="stepHeader-counter stepHeader-counter--complete"
+                        />
+                        <h2 className="staticConsignment__method-label">
+                            <TranslatedString id="shipping.shipping_method_label" />
+                        </h2>
+                    </div>
+
                     <div className="shippingOption shippingOption--alt shippingOption--selected">
                         <StaticShippingOption
                             displayAdditionalInformation={false}

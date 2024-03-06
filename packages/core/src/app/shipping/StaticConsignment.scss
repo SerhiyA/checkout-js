@@ -1,7 +1,22 @@
 @import '../ui/Base';
+@import '../../scss/settings/checkout/shipping/settings';
 
 .staticConsignment {
     width: 100%;
+
+    &__shipping-method {
+        margin: $staticConsigments-sumarry-margin 0;
+    }
+
+    &__method-heading {
+        display: flex;
+    }
+
+    &__method-label {
+        font-size: $staticConsigments-sumarry-font-size;
+        min-width: 9rem;
+        margin: 0;
+    }
 }
 
 .staticConsignmentContainer {

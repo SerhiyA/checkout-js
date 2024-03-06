@@ -12,7 +12,7 @@
 //
 // -----------------------------------------------------------------------------
 
-$exportCSS--buttons:                    false; // 1
+$exportCSS--buttons:                    true; // 1
 
 //
 // Button Style variables
@@ -31,12 +31,12 @@ $buttonStyle-default-borderColorActive:      color("greys", "dark");
 $buttonStyle-primary-color:                  color("whites", "bright");
 $buttonStyle-primary-colorHover:             color("whites", "bright");
 $buttonStyle-primary-colorActive:            color("whites", "bright");
-$buttonStyle-primary-backgroundColor:        color("primary");
-$buttonStyle-primary-backgroundColorHover:   color("primary", "dark");
-$buttonStyle-primary-backgroundColorActive:  color("primary", "darker");
-$buttonStyle-primary-borderColor:            color("primary");
-$buttonStyle-primary-borderColorHover:       color("primary", "dark");
-$buttonStyle-primary-borderColorActive:      color("primary", "darker");
+$buttonStyle-primary-backgroundColor:        $color-pitaya-100;
+$buttonStyle-primary-backgroundColorHover:   $color-acai-100;
+$buttonStyle-primary-backgroundColorActive:  $color-acai-120;
+$buttonStyle-primary-borderColor:            $color-pitaya-100;
+$buttonStyle-primary-borderColorHover:       $color-acai-100;
+$buttonStyle-primary-borderColorActive:      $color-acai-120;
 
 $buttonStyle-tertiary-color:                 color("highlight");
 $buttonStyle-tertiary-colorHover:            color("highlight", "dark");

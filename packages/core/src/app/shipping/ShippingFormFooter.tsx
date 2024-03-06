@@ -10,6 +10,8 @@ import { Button, ButtonVariant } from '../ui/button';
 import { Fieldset, Legend } from '../ui/form';
 
 import { ShippingOptions } from './shippingOption';
+import classNames from 'classnames';
+import IconCheck from '../ui/icon/IconCheck';
 
 export interface ShippingFormFooterProps {
     cartHasChanged: boolean;
@@ -57,6 +59,14 @@ const ShippingFormFooter: FunctionComponent<ShippingFormFooterProps> = ({
                 legend={
                     <>
                         <Legend>
+                            <IconCheck
+                                additionalClassName={classNames(
+                                    'stepHeader-counter',
+                                    'optimizedCheckout-step',
+                                    { 'stepHeader-counter--complete': false },
+                                    { 'stepHeader-counter--isActive': true}
+                                )}
+                            />
                             <TranslatedString id="shipping.shipping_method_label" />
                         </Legend>
 
@@ -85,6 +95,7 @@ const ShippingFormFooter: FunctionComponent<ShippingFormFooterProps> = ({
                     id="checkout-shipping-continue"
                     isLoading={isLoading}
                     type="submit"
+                    isFullWidth={true}
                     variant={ButtonVariant.Primary}
                 >
                     <TranslatedString id="common.continue_action" />
