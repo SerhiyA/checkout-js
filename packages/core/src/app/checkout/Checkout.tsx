@@ -158,7 +158,7 @@ class Checkout extends Component<
     CheckoutState
 > {
     state: CheckoutState = {
-        isBillingSameAsShipping: true,
+        isBillingSameAsShipping: false,
         isCartEmpty: false,
         isRedirecting: false,
         isMultiShippingMode: false,
