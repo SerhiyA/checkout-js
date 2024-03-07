@@ -19,10 +19,30 @@
     color: inherit;
 }
 
+.form-checkbox + .form-label {
+    font-size: $check-label-font-size;
+    padding-left: $check-label-left-padding;
+}
+
+.form-checkbox:focus + .form-label::before,
+.form-radio:focus + .form-label::before {
+    background-color: $color-white;
+    border-color: $check-primary-color;
+}
+
+.form-checkbox + .form-label::before,
+.form-radio + .form-label::before {
+    width: $check-size;
+    height: $check-size;
+    border-radius: $check-radius;
+    background-color: $color-white;
+    border-color: $check-secondary-color;
+}
+
 .form-checkbox:checked + .form-label::before,
 .form-radio:checked + .form-label::before {
-    background-color: color("highlight");
-    border-color: color("highlight");
+    background-color: $check-secondary-color;
+    border-color: $check-secondary-color;
 }
 
 .form-radio:checked + .form-label::after {
@@ -30,29 +50,20 @@
     transform: scale(0.5);
 }
 
+.form-checkbox:checked + .form-label::after {
+    background-image: url('../static/svg/check.svg');
+    background-position: 50% 50%;
+    width: $check-icon-size;
+    height: $check-icon-size;
+}
+
 .formField--helpText {
     color: color("greys");
 }
 
 // =============================================================================
-// Custom Noissue Styles
+// CUSTOM NOISSUE INPUTS
 // =============================================================================
-
-$field-primary-text-color:          $color-black-100;
-$field-secondary-text-color:        $color-black-60;
-$field-border-active-color:         $color-acai-100;
-$field-border-color:                $color-black-20;
-$field-height:                      66px;
-$field-font-size:                   16px;
-$field-leading:                     1.25;
-$field-label-initial-position:      24px;
-$field-label-active-position:       10px;
-$field-horizontal-padding:          16px;
-$field-top-padding:                 14px;
-$field-bottom-padding:              6px;
-$field-border-width:                2px;
-$field-border-radius:               6px;
-$field-transition-duration:         .2s;
 
 .form-field--text,
 .form-field--dropdown {
@@ -60,39 +71,39 @@ $field-transition-duration:         .2s;
 
     .form-select,
     .form-input {
-        color: $field-primary-text-color;
-        border: $field-border-width solid $color-black-20;
-        border-radius: $field-border-radius;
+        color: $form-input-primary-text-color;
+        border: $form-input-border-width solid $color-black-20;
+        border-radius: $form-input-border-radius;
         box-shadow: none;
-        font-size: $field-font-size;
-        line-height: $field-leading;
-        height: $field-height;
-        padding: 14px $field-horizontal-padding 6px;
+        font-size: $form-input-font-size;
+        line-height: $form-input-leading;
+        height: $form-input-height;
+        padding: 14px $form-input-horizontal-padding 6px;
     }
 
     .form-label  {
         position: absolute;
-        top: $field-label-initial-position;
-        left: $field-horizontal-padding + $field-border-width;
-        font-size: $field-font-size;
-        line-height: $field-leading;
-        color: $color-black-60;
-        transition: top $field-transition-duration ease-in-out, transform $field-transition-duration ease-in-out;
+        top: $form-input-label-initial-top-position;
+        left: $form-input-label-left-position;
+        font-size: $form-input-font-size;
+        line-height: $form-input-leading;
+        color: $form-input-label-color;
+        transition: top $form-input-transition-duration ease-in-out, transform $form-input-transition-duration ease-in-out;
     }
 
     .form-label:has(~.form-input[placeholder]:not([placeholder=""])),
     .form-label:has(~.form-input[value]:not([value=""])),
     .form-label:has(~.form-select),
     &:focus-within .form-label {
-        top: $field-label-active-position;
-        left: $field-horizontal-padding + $field-border-width;
+        top: $form-input-label-active-top-position;
+        left: $form-input-label-left-position;
         transform-origin: 0 0;
         transform: scale(.75);
     }
 
     &:focus-within .form-input {
         outline: none;
-        border-color: $color-acai-100;
+        border-color: $form-input-focus-color;
     }
 
     .dropdown-chevron {
@@ -102,17 +113,17 @@ $field-transition-duration:         .2s;
 }
 
 .dropdown--select {
-    color: $color-black;
+    color: $form-input-primary-text-color;
 
     .dropdown-toggle {
         &--select {
-            font-size: $field-font-size;
-            border: $field-border-width solid $color-black-20;
-            border-radius: $field-border-radius;
+            font-size: $form-input-font-size;
+            border: $form-input-border-width solid $form-input-border-color;
+            border-radius: $form-input-border-radius;
 
             &:focus,
             &:hover {
-                border-color: $color-acai-100;
+                border-color: $form-input-focus-color;
             }
         }
     }

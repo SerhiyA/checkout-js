@@ -31,6 +31,7 @@ import { LoadingOverlay } from '../ui/loading';
 
 import StaticBillingAddress from './StaticBillingAddress';
 import BillingSameAsShippingField from '../shipping/BillingSameAsShippingField';
+import './BillingForm.scss'
 
 export type BillingFormValues = AddressFormValues & { orderComment: string } & { billingSameAsShipping: boolean };
 
@@ -110,7 +111,7 @@ const BillingForm = ({
     };
 
     return (
-        <Form autoComplete="on">
+        <Form autoComplete="on" className="billing-form">
             <div className="form-body">
                 <BillingSameAsShippingField
                     onChange={(isChecked) => setEditingAddress(!isChecked)}
@@ -166,6 +167,7 @@ const BillingForm = ({
                     id="checkout-billing-continue"
                     isLoading={isUpdating || isResettingAddress}
                     type="submit"
+                    isFullWidth={true}
                     variant={ButtonVariant.Primary}
                 >
                     <TranslatedString id="common.continue_action" />
