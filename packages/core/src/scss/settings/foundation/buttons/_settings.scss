@@ -21,8 +21,8 @@ $exportCSS--buttons:                    true; // 1
 $buttonStyle-default-color:                  color("greys", "dark");
 $buttonStyle-default-colorHover:             color("greys", "darker");
 $buttonStyle-default-colorActive:            color("greys", "darkest");
-$buttonStyle-default-backgroundColor:        color("secondary");
-$buttonStyle-default-backgroundColorHover:   color("secondary");
+$buttonStyle-default-backgroundColor:        $color-acai-100;
+$buttonStyle-default-backgroundColorHover:   $color-acai-120;
 $buttonStyle-default-backgroundColorActive:  color("secondary");
 $buttonStyle-default-borderColor:            color("greys", "medium");
 $buttonStyle-default-borderColorHover:       color("greys");
@@ -52,11 +52,11 @@ $buttonStyle-action-color:                   color("whites", "bright");
 $buttonStyle-action-colorHover:              color("whites", "bright");
 $buttonStyle-action-colorActive:             color("whites", "bright");
 $buttonStyle-action-backgroundColor:         color("highlight");
-$buttonStyle-action-backgroundColorHover:    color("highlight", "dark");
-$buttonStyle-action-backgroundColorActive:   color("highlight", "darker");
+$buttonStyle-action-backgroundColorHover:    $color-acai-100;
+$buttonStyle-action-backgroundColorActive:   $color-acai-120;
 $buttonStyle-action-borderColor:             color("highlight");
-$buttonStyle-action-borderColorHover:        color("highlight", "dark");
-$buttonStyle-action-borderColorActive:       color("highlight", "darker");
+$buttonStyle-action-borderColorHover:        $color-acai-100;
+$buttonStyle-action-borderColorActive:       $color-acai-120;
 
 $buttonStyle-disabled-color:                 color("greys", "medium");
 $buttonStyle-disabled-colorHover:            color("greys", "medium");

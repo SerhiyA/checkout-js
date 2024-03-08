@@ -4,8 +4,8 @@
 
 $checklist-spacing:                     spacing("base");
 $checklist-spacingLeft:                 spacing("double") + spacing("single");
-$checklist-spacingLeft--small:          spacing("double") + spacing("half");
-$checklist-spacingRight:                $checklist-spacingLeft / 2;
+$checklist-spacingLeft--small:          spacing("single") + spacing("half");
+$checklist-spacingRight:                spacing("single") + spacing("half");
 $checklist-label-height:                remCalc(60px);
 $checklist-label-color:                 $color-boulder;
 $checklist-label-fontSize:              fontSize("smaller");

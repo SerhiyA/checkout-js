@@ -33,6 +33,12 @@
     @include breakpoint("xlarge") {
         padding-left: spacing("double") * 3;
     }
+
+    padding: 0;
+
+    @include breakpoint("small") {
+        padding: 0 spacing("single");
+    }
 }
 
 @media print {

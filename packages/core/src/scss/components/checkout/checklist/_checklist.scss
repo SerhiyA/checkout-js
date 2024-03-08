@@ -5,14 +5,25 @@
 .form-checklist,
 .checklist-skeleton {
     border: 2px solid $color-black-10;
-    border-radius: $global-radius;
+    border-radius: 0;
     overflow: hidden;
     color: $checklist-label-color;
     list-style: none;
     padding: 0;
-    margin: spacing("single") 0 0;
+    margin-top: spacing("half");
+    margin-left: -(spacing("single"));
+    margin-right: -(spacing("single"));
 
     &:only-child {
+        border-radius: 0;
+
+        @include breakpoint("small") {
+            border-radius: $global-radius;
+        }
+    }
+
+    @include breakpoint("small") {
+        margin: 0;
         border-radius: $global-radius;
     }
 }
@@ -67,7 +78,7 @@
 
         background-color: $input-bg-color;
         border-radius: 100%;
-        content: "";
+        content: none;
         left: $checklist-pip-spacing--small;
         margin: auto;
         position: absolute;
@@ -108,10 +119,6 @@
 
     margin-left: $checklist-spacingLeft--small;
     margin-right: $checklist-spacingRight;
-
-    @include breakpoint("small") {
-        margin-left: $checklist-spacingLeft;
-    }
 }
 
 .form-checklist-container {
@@ -161,10 +168,6 @@
         padding-right: $checklist-spacingRight;
         padding-top: $checklist-pip-spacing-top;
         position: relative;
-
-        @include breakpoint("small") {
-            padding-left: $checklist-spacingLeft;
-        }
     }
 
     .skeleton-container:last-child {

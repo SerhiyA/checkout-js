@@ -25,13 +25,18 @@
     border-width: $checkoutStep-borderSize;
     counter-increment: $checkoutStep-counter;
     padding: spacing("single");
-    margin-bottom: spacing("single");
-    border-radius: spacing("single") / 2;
+    border-radius: 0;
+    margin-bottom: spacing("half");
     transition: background-color .2s ease-in-out;
 
     &--complete {
         background-color: $color-black-10;
         border-width: 0;
+    }
+
+    @include breakpoint("small") {
+        border-radius: spacing("single") / 2;
+        margin-bottom: spacing("single");
     }
 }
 

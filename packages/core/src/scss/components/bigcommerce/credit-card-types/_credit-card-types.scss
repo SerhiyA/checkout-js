@@ -19,8 +19,13 @@
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: end;
-        margin-left: spacing("single");
-        max-width: $credit-card-items-max-width;
+        margin-left: 0;
+        max-width: 100%;
+
+        @include breakpoint("small") {
+            max-width: $credit-card-items-max-width;
+            margin-left: auto;
+        }
     }
 
     .creditCardTypes-list-item {

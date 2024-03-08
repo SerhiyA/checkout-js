@@ -5,6 +5,11 @@
     align-items: start;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+
+    @include breakpoint("small") {
+        flex-wrap: nowrap;
+    }
 }
 
 .paymentProviderHeader-subtitleContainer {
