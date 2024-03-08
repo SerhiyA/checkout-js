@@ -32,12 +32,21 @@ import { LoadingOverlay } from '../ui/loading';
 import StaticBillingAddress from './StaticBillingAddress';
 import BillingSameAsShippingField from '../shipping/BillingSameAsShippingField';
 import './BillingForm.scss'
+import { StanaloneTaxNumberField } from '../stanaloneTaxNumberField';
+import { TAX_NUMBER_FIELD_NAME } from './Billing.config';
+import { extractTaxNumber } from './Billing.utils';
 
-export type BillingFormValues = AddressFormValues & { orderComment: string } & { billingSameAsShipping: boolean };
+export type BillingFormValues = AddressFormValues & { orderComment: string } & { billingSameAsShipping: boolean } & { taxNumber?: string };
+
+
+const STANDALONE_FIELDS: string[] = [
+    TAX_NUMBER_FIELD_NAME,
+];
 
 export interface BillingFormProps {
     isBillingSameAsShipping: boolean;
     billingAddress?: Address;
+    shippingAddress?: Address;
     countries: Country[];
     countriesWithAutocomplete: string[];
     customer: Customer;
@@ -81,7 +90,7 @@ const BillingForm = ({
     const customFormFields = allFormFields.filter(({ custom }) => custom);
     const hasCustomFormFields = customFormFields.length > 0;
     const editableFormFields =
-        shouldRenderStaticAddress && hasCustomFormFields ? customFormFields : allFormFields;
+        shouldRenderStaticAddress && hasCustomFormFields ? customFormFields : allFormFields.filter(({ name }) => !STANDALONE_FIELDS.includes(name));
     const billingAddresses = isPayPalAxoEnabled ? mergedBcAndPayPalConnectAddresses : addresses;
     const hasAddresses = billingAddresses?.length > 0;
     const hasValidCustomerAddress =
@@ -124,40 +133,40 @@ const BillingForm = ({
                 </div>
             )}
 
-            {editingAddress && (
-                <Fieldset id="checkoutBillingAddress" ref={addressFormRef}>
-                    {hasAddresses && !shouldRenderStaticAddress && (
-                        <Fieldset id="billingAddresses">
-                            <LoadingOverlay isLoading={isResettingAddress}>
-                                <AddressSelect
-                                    addresses={billingAddresses}
-                                    onSelectAddress={handleSelectAddress}
-                                    onUseNewAddress={handleUseNewAddress}
-                                    selectedAddress={
-                                        hasValidCustomerAddress ? billingAddress : undefined
-                                    }
-                                    type={AddressType.Billing}
-                                />
-                            </LoadingOverlay>
-                        </Fieldset>
-                    )}
-
-                    {!hasValidCustomerAddress && (
-                        <AddressFormSkeleton isLoading={isResettingAddress}>
-                            <AddressForm
-                                countries={countries}
-                                countriesWithAutocomplete={countriesWithAutocomplete}
-                                countryCode={values.countryCode}
-                                formFields={editableFormFields}
-                                googleMapsApiKey={googleMapsApiKey}
-                                isFloatingLabelEnabled={isFloatingLabelEnabled}
-                                setFieldValue={setFieldValue}
-                                shouldShowSaveAddress={!isGuest}
+            {editingAddress && <Fieldset id="checkoutBillingAddress" ref={addressFormRef}>
+                {hasAddresses && !shouldRenderStaticAddress && (
+                    <Fieldset id="billingAddresses">
+                        <LoadingOverlay isLoading={isResettingAddress}>
+                            <AddressSelect
+                                addresses={billingAddresses}
+                                onSelectAddress={handleSelectAddress}
+                                onUseNewAddress={handleUseNewAddress}
+                                selectedAddress={
+                                    hasValidCustomerAddress ? billingAddress : undefined
+                                }
+                                type={AddressType.Billing}
                             />
-                        </AddressFormSkeleton>
-                    )}
-                </Fieldset>
-            )}
+                        </LoadingOverlay>
+                    </Fieldset>
+                )}
+
+                {!hasValidCustomerAddress && (
+                    <AddressFormSkeleton isLoading={isResettingAddress}>
+                        <AddressForm
+                            countries={countries}
+                            countriesWithAutocomplete={countriesWithAutocomplete}
+                            countryCode={values.countryCode}
+                            formFields={editableFormFields}
+                            googleMapsApiKey={googleMapsApiKey}
+                            isFloatingLabelEnabled={isFloatingLabelEnabled}
+                            setFieldValue={setFieldValue}
+                            shouldShowSaveAddress={!isGuest}
+                        />
+                    </AddressFormSkeleton>
+                )}
+            </Fieldset>}
+
+            <StanaloneTaxNumberField />
 
             {shouldShowOrderComments && <OrderComments />}
 
@@ -188,7 +197,8 @@ export default withLanguage(
                 billingAddress,
             ),
             orderComment: customerMessage,
-            billingSameAsShipping: isBillingSameAsShipping
+            billingSameAsShipping: isBillingSameAsShipping,
+            taxNumber: extractTaxNumber(billingAddress)
         }),
         isInitialValid: ({ billingAddress, getFields, language }) =>
             !!billingAddress &&

@@ -19,6 +19,7 @@ import { getShippableItemsCount } from '../shipping';
 
 import BillingForm, { BillingFormValues } from './BillingForm';
 import getBillingMethodId from './getBillingMethodId';
+import { addTaxNumberToAddress } from './Billing.utils';
 
 export interface BillingProps {
     isBillingSameAsShipping: boolean;
@@ -79,6 +80,7 @@ class Billing extends Component<BillingProps & WithCheckoutBillingProps> {
     private handleSubmit: (values: BillingFormValues) => void = async ({
         billingSameAsShipping,
         orderComment,
+        taxNumber,
         ...addressValues
     }) => {
         const {
@@ -94,12 +96,24 @@ class Billing extends Component<BillingProps & WithCheckoutBillingProps> {
         const promises: Array<Promise<CheckoutSelectors>> = [];
         const address = mapAddressFromFormValues(addressValues);
 
-        if (billingSameAsShipping && shippingAddress && !isEqualAddress(shippingAddress, billingAddress)) {
-            promises.push(updateAddress(shippingAddress));
+        let addressPayload: Address = address
+
+        /** 
+         * We don't render Tax Number field as part of regular shippingAddress or billingAddress forms
+         * Instead we allow customers to edit it independetly as standalone field
+         * Because of that we need to inject [taxNumber] value into addressPaylod before sending the update request
+         * In the first case it ensures that when customer checks [billingSameAsShipping] checkbox and edits standalone tax number field
+         * we merge the shippingAddress and taxNumber value for the payload.
+         * In the second case (when customer submit a new address) it maps standalone field value to the proper field in submitted address form. 
+        */
+        if (billingSameAsShipping) {
+            addressPayload = addTaxNumberToAddress(shippingAddress || address, taxNumber)
+        } else {
+            addressPayload = addTaxNumberToAddress(address, taxNumber)
         }
 
-        if (!billingSameAsShipping && address && !isEqualAddress(address, billingAddress)) {
-            promises.push(updateAddress(address));
+        if (addressPayload && !isEqualAddress(addressPayload, billingAddress)) {
+            promises.push(updateAddress(addressPayload));
         }
 
         if (customerMessage !== orderComment) {

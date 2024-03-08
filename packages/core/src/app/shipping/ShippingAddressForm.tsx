@@ -32,6 +32,11 @@ export interface ShippingAddressFormProps {
 
 const addressFieldName = 'shippingAddress';
 
+const TAX_NUMBER_FIELD_NAME = 'field_27';
+
+const OMITTED_FIELDS: string[] = [
+    TAX_NUMBER_FIELD_NAME,
+];
 class ShippingAddressForm extends Component<
     ShippingAddressFormProps & ConnectFormikProps<SingleShippingFormValues>
 > {
@@ -59,6 +64,7 @@ class ShippingAddressForm extends Component<
             addresses,
             formFields,
         );
+        const editableFormFields = formFields.filter(({ name }) => !OMITTED_FIELDS.includes(name))
 
         return (
             <Fieldset id="checkoutShippingAddress">
@@ -85,7 +91,7 @@ class ShippingAddressForm extends Component<
                             countriesWithAutocomplete={countriesWithAutocomplete}
                             countryCode={formAddress && formAddress.countryCode}
                             fieldName={addressFieldName}
-                            formFields={formFields}
+                            formFields={editableFormFields}
                             googleMapsApiKey={googleMapsApiKey}
                             isFloatingLabelEnabled={isFloatingLabelEnabled}
                             onAutocompleteToggle={this.handleAutocompleteToggle}

@@ -1,7 +1,13 @@
 @import "../ui/Base";
 
 .billing-form {
-    .form-body {
+    & > .form-body {
         margin: 0 0 spacing("single");
+    }
+
+    .form-legend {
+        p {
+            margin-bottom: 0;
+        }
     }
 }
