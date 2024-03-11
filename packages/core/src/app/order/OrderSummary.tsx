@@ -39,12 +39,15 @@ const OrderSummary: FunctionComponent<OrderSummaryProps & OrderSummarySubtotalsP
             <OrderSummaryHeader>{headerLink}</OrderSummaryHeader>
 
             <OrderSummarySection>
-                <OrderSummaryItems displayLineItemsCount items={nonBundledLineItems} />
+                <OrderSummaryItems displayLineItemsCount={false} items={nonBundledLineItems} />
             </OrderSummarySection>
 
             <OrderSummarySection>
-                <OrderSummarySubtotals isTaxIncluded={isTaxIncluded} taxes={taxes} {...orderSummarySubtotalsProps} />
                 {additionalLineItems}
+            </OrderSummarySection>
+            
+            <OrderSummarySection>
+                <OrderSummarySubtotals isTaxIncluded={isTaxIncluded} taxes={taxes} {...orderSummarySubtotalsProps} />
             </OrderSummarySection>
 
             <OrderSummarySection>

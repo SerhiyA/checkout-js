@@ -38,12 +38,16 @@
     display: table-cell;
     margin-bottom: 0;
     vertical-align: middle;
+    font-size: $checkoutCart-titleSize;
+    font-weight: $checkoutCart-titleWeight;
+    color: $color-acai-100;
 }
 
 .cart-header-link {
     display: table-cell;
     text-align: right;
     vertical-align: middle;
+    color: $color-pitaya-100;
 
     .icon {
         margin: -2px 3px 0 0;
@@ -61,6 +65,9 @@
 .cart-section {
     border-top: container("border");
     padding: $checkoutCart-padding;
+}
+.cart-header + .cart-section {
+    border-top: 0
 }
 
 .cart-section-heading {
@@ -97,6 +104,18 @@
     vertical-align: middle;
 }
 
+.cart-priceItem-label {
+    font-size: fontSize("smaller");
+    font-weight: fontWeight("normal");
+    color: $color-black-80;
+}
+
+.cart-priceItem-value {
+    font-size: fontSize("smaller");
+    font-weight: fontWeight("semibold");
+    color: $color-black-100;
+}
+
 .cart-priceItem-value {
     text-align: right;
 }
@@ -112,10 +131,12 @@
 
     .cart-priceItem-label {
         font-size: fontSize("smaller");
+        font-weight: fontWeight("semibold");
+        color: $color-black-100;
     }
 
     .cart-priceItem-value {
-        font-size: fontSize("larger");
+        font-size: fontSize("small");
         font-weight: fontWeight("bold");
         line-height: 1.2;
     }
@@ -156,4 +177,16 @@
 
 .cart-taxItem--subtotal {
     font-weight: fontWeight("semibold");
+}
+
+
+.cart-total {
+    .cart-priceItem-label,
+    .cart-priceItem-value {
+        color: $color-black-100;
+        font-weight: fontWeight("semibold");
+    }
+    .cart-priceItem-value {
+        font-size: fontSize("smaller");
+    }
 }

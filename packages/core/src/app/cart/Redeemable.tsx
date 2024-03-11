@@ -11,7 +11,7 @@ import { useCheckout } from '@bigcommerce/checkout/payment-integration-api';
 import { FormContextType, FormProvider } from '@bigcommerce/checkout/ui';
 
 import { Alert, AlertType } from '../ui/alert';
-import { Button, ButtonVariant } from '../ui/button';
+import { Button, ButtonVariant, ButtonBorder } from '../ui/button';
 import { FormField, Label, TextInput } from '../ui/form';
 import { Toggle } from '../ui/toggle';
 
@@ -164,12 +164,13 @@ const RedeemableForm: FunctionComponent<
 
                             <Button
                                 className="form-prefixPostfix-button--postfix"
-                                disabled={isSubmittingOrder()}
+                                disabled={isSubmittingOrder() || !field?.value}
                                 id="applyRedeemableButton"
                                 isLoading={isApplyingRedeemable}
                                 onClick={handleSubmit(setSubmitted)}
                                 testId="redeemableEntry-submit"
-                                variant={ButtonVariant.Secondary}
+                                variant={ButtonVariant.Primary}
+                                border={ButtonBorder.Rounded}
                             >
                                 <TranslatedString id="redeemable.apply_action" />
                             </Button>

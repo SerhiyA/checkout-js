@@ -52,7 +52,7 @@
         "cart": {
             "billed_amount_text": "*You will be charged and invoiced {total} ({code}) for this order.",
             "based_on_currency_text": "Based on {total} {code}",
-            "cart_heading": "Order Summary",
+            "cart_heading": "Your order",
             "digital_item_text": "Digital Item",
             "discount_text": "Discount",
             "downloads_action": "Go to Downloads",
@@ -474,7 +474,7 @@
             "gift_certificate_text": "Gift Certificate",
             "remove_action": "Remove",
             "store_credit_available_text": "Your account currently has {storeCredit} total store credit available",
-            "toggle_action": "Coupon/Gift Certificate"
+            "toggle_action": "Add Discount Code"
         },
         "remote": {
             "browser_unsupported": "The selected payment method requires a different web browser. Please choose another payment method.",

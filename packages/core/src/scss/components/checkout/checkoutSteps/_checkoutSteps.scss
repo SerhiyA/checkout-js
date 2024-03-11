@@ -34,6 +34,11 @@
         border-width: 0;
     }
 
+    &--active {
+        background-color: $color-white;
+        border-width: $checkoutStep-borderSize;
+    }
+
     @include breakpoint("small") {
         border-radius: spacing("single") / 2;
         margin-bottom: spacing("single");

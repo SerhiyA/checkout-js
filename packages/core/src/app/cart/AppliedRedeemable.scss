@@ -63,7 +63,30 @@
 }
 
 .redeemable-label {
-    margin-top: spacing("base");
+    display: block;
+    margin-bottom: spacing("half");
+    font-size: fontSize("smaller");
+    color: $color-acai-100;
+
+    &:hover,
+    &:focus,
+    &:visited,
+    &:focus-within {
+        color: $color-acai-120;
+    }
+}
+
+#redeemable-collapsable {
+    .form-input {
+        border: 2px solid $color-black-20;
+        border-radius: 60px;
+        box-shadow: none;
+        padding-left: spacing("single");
+
+        &:focus {
+            border-color: $color-acai-100;
+        }
+    }
 }
 
 .redeemable-payments {

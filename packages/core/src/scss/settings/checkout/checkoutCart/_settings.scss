@@ -4,4 +4,6 @@
 
 $checkoutCart-borderRadius: $global-radius;
 $checkoutCart-minHeight: 300px;
-$checkoutCart-padding: spacing("single");
+$checkoutCart-padding: spacing("single") spacing("single") spacing("half");
+$checkoutCart-titleSize: fontSize("large");
+$checkoutCart-titleWeight: fontWeight("semibold");

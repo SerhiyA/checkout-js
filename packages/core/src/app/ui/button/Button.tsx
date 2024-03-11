@@ -7,6 +7,12 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     size?: ButtonSize;
     testId?: string;
     variant?: ButtonVariant;
+    border?: ButtonBorder;
+}
+
+export enum ButtonBorder {
+    Square = 'square',
+    Rounded = 'rounded'
 }
 
 export enum ButtonVariant {
@@ -22,13 +28,14 @@ export enum ButtonSize {
 }
 
 function getClassName(
-    props: Pick<ButtonProps, 'className' | 'isFullWidth' | 'isLoading' | 'size' | 'variant'>,
+    props: Pick<ButtonProps, 'className' | 'isFullWidth' | 'isLoading' | 'size' | 'variant' | 'border'>,
 ) {
-    const { className, isFullWidth, isLoading, size, variant } = props;
+    const { className, isFullWidth, isLoading, size, variant, border } = props;
 
     return classNames(
         'button',
         className,
+        { 'button--rounded': border === ButtonBorder.Rounded },
         { 'button--primary': variant === ButtonVariant.Primary },
         { 'button--tertiary': variant === ButtonVariant.Secondary },
         { 'button--action': variant === ButtonVariant.Action },
@@ -55,11 +62,12 @@ const Button: FunctionComponent<ButtonProps> = ({
     testId,
     type,
     variant,
+    border,
     ...rest
 }) => (
     <button
         {...rest}
-        className={getClassName({ className, isFullWidth, isLoading, size, variant })}
+        className={getClassName({ className, isFullWidth, isLoading, size, variant, border })}
         data-test={testId}
         disabled={disabled || isLoading}
         type={type || 'button'}

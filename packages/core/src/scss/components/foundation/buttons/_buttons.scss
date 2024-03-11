@@ -12,7 +12,7 @@
 @if $exportCSS--buttons { // 1
 
     .button {
-        text-transform: uppercase;
+        text-transform: capitalize;
         transition: all 100ms ease-out;
         border-radius: $global-radius;
 
@@ -64,8 +64,14 @@
     }
 
     .link--disabled {
-        color: color("greys", "light");
+        background-color: $color-black-20;
+        border-color: $color-black-20;
+        color: $color-black-80;
         cursor: default;
         pointer-events: none;
+    }
+
+    .button--rounded {
+        border-radius: 50px;
     }
 }

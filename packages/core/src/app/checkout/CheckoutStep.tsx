@@ -70,7 +70,8 @@ export default class CheckoutStep extends Component<CheckoutStepProps, CheckoutS
                 className={classNames('noissue-checkout-step',
                     'optimizedCheckout-checkoutStep', {
                         [`noissue-checkout-step--${type}`]: !!type,
-                        'noissue-checkout-step--complete': isComplete
+                        'noissue-checkout-step--complete': isComplete && !isActive,
+                        'noissue-checkout-step--active': isActive
                     }
                 )}
                 ref={this.containerRef}
