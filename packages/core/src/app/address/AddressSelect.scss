@@ -6,6 +6,7 @@
 }
 
 .dropdown-toggle--select {
+    background-color: transparent;
     color: $input-font-color;
     margin-bottom: 0;
     min-height: 3rem;
@@ -16,6 +17,7 @@
 
     &:focus,
     &:hover {
+        background-color: transparent;
         border-color: $select-focus-borderColor;
     }
 }

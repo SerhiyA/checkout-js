@@ -139,10 +139,6 @@ function appConfig(options, argv) {
                 module: {
                     rules: [
                         {
-                            test: /\.(woff|woff2|ttf|eot)$/,
-                            use: 'file-loader?name=fonts/[name].[ext]!static',
-                        },
-                        {
                             test: /\.[tj]sx?$/,
                             enforce: 'pre',
                             loader: require.resolve('source-map-loader'),
@@ -206,7 +202,7 @@ function appConfig(options, argv) {
                             sideEffects: true,
                         },
                         {
-                            test: /\.(gif|png|jpe?g|svg)$/i,
+                            test: /\.(gif|png|jpe?g|svg|woff|woff2|ttf|eot)$/i,
                             use: [
                                 {
                                     loader: 'file-loader',
@@ -222,7 +218,7 @@ function appConfig(options, argv) {
                                     },
                                 },
                             ],
-                        },
+                        }
                     ],
                 },
             };

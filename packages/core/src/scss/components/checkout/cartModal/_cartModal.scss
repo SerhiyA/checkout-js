@@ -31,10 +31,11 @@
 }
 
 .cart-modal-link {
+    color: $color-pitaya-100;
     text-align: right;
 
     svg {
-        fill: currentColor;
+        fill: $color-pitaya-100;
     }
 }
 
